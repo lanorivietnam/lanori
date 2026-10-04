@@ -5,6 +5,7 @@ body{font-family:Poppins,sans-serif;color:var(--ink);background:var(--cream);lin
 h1,h2,h3,.logo{font-family:'Playfair Display',serif}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
 .muted{color:var(--muted);font-weight:400}
 
 /* ===== Header ===== */
@@ -36,10 +37,15 @@ h2{font-size:2.1rem;margin-bottom:12px}
 .hero h1{font-size:clamp(2.4rem,5vw,4rem);line-height:1.15;color:var(--berry)}
 .hero p{margin:18px 0 26px;max-width:480px;color:var(--muted)}
 .btns{display:flex;gap:12px;flex-wrap:wrap}
+
+/* Khung ảnh */
 .ph{background:linear-gradient(135deg,var(--pink),#dff1e2);border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);text-align:center;padding:10px}
 .ph.big{height:420px;font-size:6rem}
 .ph small{font-size:.75rem}
 .ph.wide{height:200px;margin-top:30px}
+.ph img{width:100%;height:100%;object-fit:cover;border-radius:var(--r);display:block}
+.ph:has(img){padding:0;overflow:hidden}
+.ph.big img{object-fit:contain}
 
 /* ===== Bộ lọc, thẻ sản phẩm ===== */
 .filters,.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:20px 0}
@@ -48,7 +54,7 @@ h2{font-size:2.1rem;margin-bottom:12px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:22px;margin-top:20px}
 .pcard{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:14px;text-align:left;transition:.3s;cursor:pointer;display:flex;flex-direction:column}
 .pcard:hover{transform:translateY(-6px);box-shadow:0 14px 36px rgba(0,0,0,.12)}
-.pcard .ph{height:150px;font-size:3rem;margin-bottom:10px}
+.pcard .ph{height:auto;aspect-ratio:1/1;font-size:3rem;margin-bottom:10px}
 .pcard h3{font-size:1.05rem}
 .pcard p{font-size:.82rem;color:var(--muted);flex:1}
 .pcard select.size{width:100%;margin-top:8px;padding:7px 10px;border:1px solid var(--pink);border-radius:10px;background:#fff;font-size:.8rem}
@@ -108,6 +114,8 @@ footer h4{margin-bottom:8px;color:#fff}
 .mbox label{display:block;margin:8px 0;font-size:.9rem}
 .mbox input,.mbox select,.mbox textarea{width:100%;padding:10px 12px;margin:5px 0;border:1px solid #ddd;border-radius:10px}
 .mbox input[type=checkbox],.mbox input[type=range]{width:auto}
+.adds{margin:8px 0;font-size:.9rem}
+.mbox .ck{display:inline-flex;align-items:center;gap:6px;margin:4px 6px 4px 0;padding:8px 12px;border:1px solid var(--pink);border-radius:20px;cursor:pointer}
 .summary{background:var(--cream);padding:12px;border-radius:10px;font-size:.85rem;margin:8px 0}
 .err{color:#c00}
 #toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,80px);background:#2b2b2b;color:#fff;padding:10px 22px;border-radius:30px;z-index:200;transition:.3s;opacity:0}
@@ -117,10 +125,12 @@ footer h4{margin-bottom:8px;color:#fff}
 .reveal{opacity:0;transform:translateY(24px);transition:.7s}
 .reveal.in{opacity:1;transform:none}
 @keyframes fade{from{opacity:0}}
+@keyframes sheet{from{transform:translateY(40px);opacity:.4}}
 
 /* ===== Responsive ===== */
 @media(max-width:1280px){nav{gap:14px;font-size:.82rem}}
-/* Menu tiếng Việt dài nên chuyển sang hamburger khi màn hình ≤ 1060px */
+
+/* Máy tính bảng và điện thoại: menu hamburger */
 @media(max-width:1060px){
   #burger{display:block}
   .shop{display:none}
@@ -138,18 +148,108 @@ footer h4{margin-bottom:8px;color:#fff}
   .grid{grid-template-columns:repeat(2,1fr);gap:12px}
   .cards.five,.cards.three{grid-template-columns:1fr 1fr}
   .mgrid{grid-template-columns:1fr}
-  .timeline{flex-direction:column}
-  .timeline div::after{display:none}
 }
-@media(max-width:480px){
-  .grid,.cards.five,.cards.four,.cards.three,footer{grid-template-columns:1fr}
-  .btn{padding:12px 24px}
+@media(hover:none){
+  .pcard:hover,.card:hover,.btn-primary:hover{transform:none}
+}
+
+/* ===== ĐIỆN THOẠI (≤ 600px) ===== */
+@media(max-width:600px){
+  html{scroll-padding-top:70px}
+  body{font-size:15px;overflow-x:hidden}
+  .btn{min-height:44px;padding:12px 22px}
+
+  /* Header + menu */
+  header{height:60px;padding:0 4%}
+  .logo{font-size:1.4rem}
+  .actions{gap:2px}
+  .actions button{width:44px;height:44px;display:grid;place-items:center}
+  #cartCount{top:3px;right:1px}
+  #search.open{position:absolute;left:4%;top:calc(100% + 8px);width:92%;padding:12px 16px;background:#fff;border:1px solid var(--pink);box-shadow:var(--sh);font-size:16px}
+  nav{padding:6px 4%;gap:0}
+  nav a{padding:14px 4px;font-size:1rem;border-bottom:1px solid #f3e9e4}
+  nav a:last-child{border:0}
+
+  /* Hero */
+  .hero{min-height:auto;padding:84px 5% 32px;gap:22px}
+  .hero h1{font-size:2rem}
+  .hero p{font-size:.95rem;margin:12px auto 20px}
+  .btns{flex-wrap:nowrap}
+  .btns .btn{flex:1;text-align:center;padding:12px 8px;font-size:.9rem}
+  .ph.big{height:220px}
+
+  /* Khu vực chung */
+  .section{padding:48px 5% 28px}
+  h2{font-size:1.6rem}
+  .sub{font-size:.92rem;margin-bottom:20px}
+  .chips span{padding:9px 14px;font-size:.84rem}
+
+  /* Bộ lọc: cuộn ngang, dính dưới menu */
+  .filters{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;margin:12px -5%;padding:8px 5%;scrollbar-width:none;position:sticky;top:60px;z-index:20;background:var(--cream)}
+  .filters::-webkit-scrollbar{display:none}
+  .filters button{flex:0 0 auto;padding:9px 16px;min-height:40px}
+
+  /* Thẻ sản phẩm dạng ngang */
+  .grid{grid-template-columns:1fr;gap:12px;margin-top:8px}
+  .pcard{display:grid;grid-template-columns:96px 1fr;column-gap:12px;padding:12px;align-items:start}
+  .pcard .ph{grid-column:1;grid-row:1 / span 4;width:96px;margin:0}
+  .pcard h3,.pcard p,.pcard small,.pcard .price{grid-column:2}
+  .pcard h3{font-size:1rem;line-height:1.3}
+  .pcard p{font-size:.8rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .pcard .price{margin-top:2px}
+  .pcard select.size,.pcard .row{grid-column:1 / -1}
+  .pcard select.size{font-size:16px;padding:10px 12px;margin-top:10px}
+  .pcard .row button{padding:11px 6px;font-size:.88rem;min-height:44px}
+
+  /* Thẻ lợi thế, dịch vụ: mỗi thẻ một hàng gọn */
+  .cards.five,.cards.four{grid-template-columns:1fr;gap:10px;margin-top:18px}
+  .cards.five .card,.cards.four .card{display:grid;grid-template-columns:44px 1fr;column-gap:12px;align-items:center;text-align:left;padding:14px 16px}
+  .cards.five .ic,.cards.four .ic{grid-row:1 / span 2;font-size:1.7rem;margin:0}
+  .card h3{font-size:1rem}
+  .card p{font-size:.85rem;color:var(--muted)}
+
+  /* Đánh giá: vuốt ngang */
+  .cards.three{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:18px -5% 0;padding:4px 5% 14px;scrollbar-width:none}
+  .cards.three::-webkit-scrollbar{display:none}
+  .cards.three .card{flex:0 0 80%;scroll-snap-align:center;text-align:left}
+
+  /* Cá nhân hóa, quy trình, khuyến mãi */
+  .builder{padding:20px}
+  .builder label{display:block}
+  .builder input[type=range]{display:block;width:100%;margin:12px 0}
+  .timeline{flex-direction:column;gap:8px;margin:18px 0}
+  .timeline div{display:flex;align-items:center;gap:12px;text-align:left;background:#fff;border-radius:14px;padding:8px 12px;box-shadow:var(--sh)}
+  .timeline div::after{display:none}
+  .timeline i{margin:0;width:34px;height:34px;flex:0 0 34px}
+  .ph.wide{height:auto}
+  .ph.wide img{height:auto}
+  .promo{padding:24px 18px}
+
+  /* Footer */
+  footer{grid-template-columns:1fr;gap:22px;padding:36px 5% 24px}
+  footer a{padding:6px 0}
+  #newsletter input{font-size:16px;padding:12px 14px}
+
+  /* Giỏ hàng: toàn màn hình */
+  #drawer{width:100%;right:-105%;height:100dvh;padding:16px 16px calc(16px + env(safe-area-inset-bottom))}
+  .dh button{width:44px;height:44px}
+  .item{font-size:.92rem}
+  .qty button{width:34px;height:34px}
+  .rm{padding:8px 0}
+
+  /* Bảng chọn sản phẩm, thanh toán: ngăn kéo từ dưới lên */
+  .modal{align-items:flex-end;padding:0}
+  .mbox{max-width:none;border-radius:20px 20px 0 0;max-height:92dvh;padding:18px 16px calc(18px + env(safe-area-inset-bottom));animation:sheet .3s}
+  .mbox .x{top:8px;right:8px;width:40px;height:40px;border-radius:50%;background:#f4efe9;z-index:2;display:grid;place-items:center}
+  .mgrid{gap:12px}
+  .mgrid .ph{min-height:0;height:auto;aspect-ratio:4/3;max-height:240px;font-size:3rem}
+  .mbox input,.mbox select,.mbox textarea{font-size:16px;padding:12px}
+  .mbox input[type=checkbox]{width:18px;height:18px;padding:0;margin:0}
+  #mAdd{position:sticky;bottom:0;box-shadow:0 0 0 10px #fff}
+
+  #toast{bottom:calc(20px + env(safe-area-inset-bottom));max-width:90%;text-align:center}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
 }
-.ph img{width:100%;height:100%;object-fit:cover;border-radius:var(--r);display:block}
-.ph:has(img){padding:0;overflow:hidden}
-.pcard .ph{height:auto;aspect-ratio:1/1}
-.ph.big img{object-fit:contain}
