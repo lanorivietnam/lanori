@@ -253,3 +253,13 @@ footer h4{margin-bottom:8px;color:#fff}
   *{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
 }
+/* ===== Quy trình sản xuất ===== */
+.ph.wide{height:auto;padding:0}
+.ph.wide img{height:auto;object-fit:contain}
+@media(max-width:600px){
+  .timeline{position:relative;flex-direction:column;gap:0;margin:20px auto;max-width:320px;text-align:left}
+  .timeline::before{content:"";position:absolute;left:19px;top:24px;bottom:24px;width:2px;background:var(--green);opacity:.35}
+  .timeline div{display:flex;align-items:center;gap:14px;padding:8px 0;background:none;box-shadow:none;border-radius:0;font-size:.95rem;text-align:left}
+  .timeline div:not(:last-child)::after{display:none}
+  .timeline i{position:relative;z-index:1;flex:0 0 40px;width:40px;height:40px;margin:0;box-shadow:0 0 0 4px var(--cream)}
+}
