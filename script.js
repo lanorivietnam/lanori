@@ -103,7 +103,7 @@ function openProduct(id,mode='view',si=0){
     ${p.flavors?`<label><b>Chọn hương vị</b><select id="mFlavor">${p.flavors.map(f=>`<option>${f}</option>`).join('')}</select></label>`:''}
     <label>Quy cách<select id="mSize" data-id="${p.id}">${p.sizes.map((s,i)=>`<option value="${i}" ${i===si?'selected':''}>${sizeOpt(s)}</option>`).join('')}</select></label>
     <label>Độ ngọt<select id="mSweet">${SWEET.map((s,i)=>`<option ${i===(p.cat==='plain'?0:2)?'selected':''}>${s}</option>`).join('')}</select></label>
-    <label>Thêm vào: ${ADDONS.map(a=>`<br><input type="checkbox" value="${a}"> ${a}`).join('')}</label>
+    <div class="adds"><b>Thêm vào:</b>${ADDONS.map(a=>`<label class="ck"><input type="checkbox" value="${a}"> ${a}</label>`).join('')}</div>
     <div class="price" id="mPrice">${fmt(p.sizes[si].price)}</div>
     <label>Số lượng <input type="number" id="mQty" value="1" min="1" style="width:80px"></label>
     <button class="btn btn-primary full" id="mAdd" data-id="${p.id}" data-mode="${mode}">${btn}</button></div></div>`;
