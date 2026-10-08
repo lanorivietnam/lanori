@@ -4,40 +4,55 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LANORI – Tươi ngon - Tự nhiên - Dành riêng cho bạn</title>
+<meta name="description" content="LANORI – sữa chua thủ công làm từ 100% sữa tươi và nguyên liệu tự nhiên. Tùy chỉnh độ ngọt, thêm trái cây hoặc hạt. Giao hàng tận nơi tại Hà Nội.">
+<meta name="theme-color" content="#d9546e">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:title" content="LANORI – Sữa chua thủ công, tươi ngon và tự nhiên">
+<meta property="og:description" content="100% sữa tươi, nguyên liệu tự nhiên, tùy chỉnh theo khẩu vị của bạn. Giao hàng tận nơi tại Hà Nội.">
+<meta property="og:image" content="images/hero.jpg">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M20 6h24l6 12H14z' fill='%23fff' stroke='%23d9546e' stroke-width='4' stroke-linejoin='round'/%3E%3Crect x='14' y='18' width='36' height='42' rx='3' fill='%23d9546e'/%3E%3Crect x='20' y='30' width='24' height='16' rx='3' fill='%23fff'/%3E%3Ccircle cx='32' cy='38' r='4' fill='%23d9546e'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FoodEstablishment","name":"LANORI","description":"Sữa chua thủ công từ 100% sữa tươi và nguyên liệu tự nhiên","email":"suachuangon@lanori.com","telephone":"02267896789","address":{"@type":"PostalAddress","streetAddress":"12 Chùa Bộc, Phường Kim Liên","addressLocality":"Hà Nội","addressCountry":"VN"}}
+</script>
 </head>
 <body>
+<a class="skip" href="#main">Bỏ qua điều hướng</a>
 <header id="header">
   <a href="#home" class="logo">LANORI</a>
-  <nav id="nav">
-    <a href="#home">Trang chủ</a><a href="#products">Sản phẩm</a><a href="#services">Dịch vụ</a>
-    <a href="#about">Giới thiệu</a><a href="#why">Vì sao chọn LANORI?</a><a href="#promotions">Khuyến mãi</a><a href="#contact">Liên hệ</a>
+  <nav id="nav" aria-label="Điều hướng chính">
+    <a href="#home">Trang chủ</a><a href="#products">Sản phẩm</a><a href="#why">Vì sao chọn LANORI</a>
+    <a href="#about">Về LANORI</a><a href="#promotions">Khuyến mãi</a><a href="#contact">Liên hệ</a>
   </nav>
   <div class="actions">
-    <input id="search" type="search" placeholder="Tìm sữa chua..." aria-label="Tìm kiếm">
+    <input id="search" type="search" placeholder="Tìm sữa chua..." aria-label="Tìm kiếm sản phẩm">
     <button id="searchBtn" aria-label="Tìm kiếm">🔍</button>
-    <button id="cartBtn" aria-label="Giỏ hàng">🛒<span id="cartCount">0</span></button>
+    <button id="cartBtn" aria-label="Mở giỏ hàng">🛒<span id="cartCount">0</span></button>
     <a href="#products" class="btn btn-primary shop">Mua ngay</a>
-    <button id="burger" aria-label="Menu">☰</button>
+    <button id="burger" aria-label="Mở menu" aria-expanded="false" aria-controls="nav">☰</button>
   </div>
 </header>
 
-<main>
+<main id="main">
 <section id="home" class="hero">
   <div class="hero-text reveal">
     <h1>Tươi ngon, Tự nhiên, <br>Dành riêng cho bạn!</h1>
     <p>LANORI là thương hiệu sữa chua thủ công, được làm từ 100% sữa tươi và nguyên liệu tự nhiên chất lượng cao, phân phối trực tiếp tại Hà Nội.</p>
-    <div class="btns"><a href="#products" class="btn btn-primary">Mua ngay</a><a href="#products" class="btn btn-ghost">Khám phá sản phẩm</a></div>
+    <div class="btns"><a href="#products" class="btn btn-primary">Mua ngay</a><a href="#custom" class="btn btn-ghost">Tùy chỉnh theo ý bạn</a></div>
   </div>
-  <div class="hero-img reveal"><div class="ph big"><img src="images/hero.jpg" alt="LANORI"></div></div>
+  <div class="hero-img reveal"><div class="ph big"><img src="images/hero.jpg" alt="Hũ sữa chua LANORI" data-emoji="🥛" width="640" height="420"></div></div>
 </section>
 
 <section id="products" class="section">
   <h2 class="reveal">Bộ sưu tập sữa chua của chúng tôi</h2>
-  <div class="filters" id="filters"></div>
+  <p class="sub">Chọn quy cách, độ ngọt và topping ngay khi đặt hàng. Topping +5.000đ cho mỗi loại.</p>
+  <div class="filters" id="filters" role="group" aria-label="Lọc sản phẩm"></div>
   <div class="grid" id="productGrid"></div>
-  <p id="noResult" class="muted" hidden>Không tìm thấy sản phẩm phù hợp.</p>
+  <p id="noResult" class="muted" hidden>Không tìm thấy sản phẩm phù hợp. Hãy thử từ khóa khác hoặc chọn "Tất cả".</p>
 </section>
 
 <section id="custom" class="section alt">
@@ -45,12 +60,13 @@
   <p class="sub">Điều chỉnh độ ngọt, thêm trái cây hoặc các loại hạt theo đúng sở thích của bạn.</p>
   <div class="builder reveal">
     <label>Độ ngọt <input type="range" id="sweet" min="0" max="3" value="1"><b id="sweetLabel">Ít ngọt</b></label>
-    <div class="chips" id="addons"></div>
-    <p class="muted">Hãy chọn sản phẩm bên trên để áp dụng tùy chỉnh khi đặt hàng.</p>
+    <div class="chips" id="addons" aria-label="Chọn topping"></div>
+    <p class="muted" id="builderNote">Lựa chọn của bạn sẽ được áp dụng sẵn khi bạn chọn sản phẩm. Mỗi topping +5.000đ.</p>
     <a href="#products" class="btn btn-primary">Chọn sản phẩm</a>
   </div>
 </section>
 
+<!-- VÌ SAO CHỌN LANORI + DỊCH VỤ (đã gộp thành một) -->
 <section id="why" class="section">
   <h2 class="reveal">Vì sao chọn LANORI?</h2>
   <div class="cards five">
@@ -60,51 +76,84 @@
     <div class="card reveal"><span class="ic">💛</span><h3>Giá cả hợp lý</h3><p>Mức giá phù hợp với nhiều nhóm khách hàng.</p></div>
     <div class="card reveal"><span class="ic">📣</span><h3>Truyền thông đa dạng</h3><p>Quảng bá qua quảng cáo trực tiếp và các nền tảng trực tuyến.</p></div>
   </div>
-</section>
 
-<section id="services" class="section alt">
-  <h2 class="reveal">Dịch vụ của LANORI</h2>
+  <h3 id="services" class="subhead reveal">Dịch vụ của LANORI</h3>
   <div class="cards four">
     <div class="card reveal"><span class="ic">🛍️</span><h3>Đặt hàng trực tuyến</h3><p>Mua sữa chua LANORI dễ dàng mà không cần đến cửa hàng.</p></div>
-    <div class="card reveal"><span class="ic">🚚</span><h3>Giao hàng tận nơi</h3><p>Giao hàng đến tận nhà cho khách hàng tại Hà Nội.</p></div>
+    <div class="card reveal"><span class="ic">🚚</span><h3>Giao hàng tận nơi</h3><p id="shipInfo">Giao hàng đến tận nhà cho khách hàng tại Hà Nội.</p></div>
     <div class="card reveal"><span class="ic">💬</span><h3>Hỗ trợ &amp; tư vấn</h3><p>Tư vấn giúp bạn chọn sản phẩm phù hợp với nhu cầu và sở thích.</p></div>
     <div class="card reveal"><span class="ic">🎁</span><h3>Thân thiết &amp; khuyến mãi</h3><p>Chương trình khách hàng thân thiết và ưu đãi đang được phát triển.</p></div>
   </div>
 </section>
 
-<section id="about" class="section">
+<section id="about" class="section alt about">
   <h2 class="reveal">Về LANORI</h2>
-  <p class="sub">LANORI cam kết 100% sữa tươi, nguyên liệu tự nhiên, nguồn cung địa phương có thể truy xuất và sản xuất nội bộ từ đầu đến cuối. Chúng tôi hợp tác trực tiếp với các nhà cung cấp nông sản đạt chuẩn tại Đà Lạt và Doha Food, không sử dụng hương liệu tổng hợp hay puree nhân tạo. Mọi công đoạn từ thanh trùng, lên men đến đóng gói đều được kiểm soát theo tiêu chuẩn an toàn thực phẩm hiện đại, cùng đội ngũ R&amp;D chuyên ngành Công nghệ thực phẩm. LANORI là cầu nối giữa các cơ sở thủ công nhỏ lẻ và nhà sản xuất công nghiệp, mang đến hương vị tự làm chân thực.</p>
-  <div class="chips center reveal"><span>100% sữa tươi</span><span>Nguyên liệu tự nhiên</span><span>Nguồn cung địa phương</span><span>Sản xuất nội bộ</span><span>An toàn thực phẩm</span><span>Chuyên môn R&amp;D</span></div>
-  <h3 class="reveal" style="margin-top:36px">Quy trình sản xuất</h3>
-  <div class="timeline reveal">
-    <div><i>1</i>Nguyên liệu tươi</div><div><i>2</i>Thanh trùng</div><div><i>3</i>Lên men</div><div><i>4</i>Kiểm soát chất lượng</div><div><i>5</i>Đóng gói</div>
-  </div>
-  <div class="ph wide"><img src="images/quytrinhsanxuat.png" alt="Quy trình sản xuất"></div>
-</section>
+  <p class="sub">LANORI cam kết 100% sữa tươi, nguyên liệu tự nhiên và sản xuất nội bộ từ đầu đến cuối. Chúng tôi là cầu nối giữa các cơ sở thủ công nhỏ lẻ và nhà sản xuất công nghiệp, mang đến hương vị tự làm chân thực.</p>
 
-<section class="section alt">
-  <h2 class="reveal">Dành cho lối sống của bạn</h2>
-  <div class="chips center reveal"><span>🥗 Người quan tâm sức khỏe</span><span>✨ Người tiêu dùng trẻ</span><span>🏋️ Người tập gym</span><span>⚖️ Người ăn kiêng</span><span>🌱 Người ăn chay</span></div>
+  <div class="pillars">
+    <article class="pillar reveal">
+      <span class="pi">🥛</span>
+      <h3>Nguyên liệu</h3>
+      <p>100% sữa tươi và nguyên liệu tự nhiên, không dùng hương liệu tổng hợp hay puree nhân tạo.</p>
+      <div class="tags"><span>100% sữa tươi</span><span>Nguyên liệu tự nhiên</span></div>
+    </article>
+    <article class="pillar reveal">
+      <span class="pi">🍓</span>
+      <h3>Nguồn cung</h3>
+      <p>Hợp tác trực tiếp với các nhà cung cấp nông sản đạt chuẩn tại Đà Lạt và Doha Food.</p>
+      <div class="tags"><span>Nguồn cung địa phương</span></div>
+    </article>
+    <article class="pillar reveal">
+      <span class="pi">🔬</span>
+      <h3>Sản xuất &amp; R&amp;D</h3>
+      <p>Thanh trùng, lên men và đóng gói theo tiêu chuẩn an toàn thực phẩm, cùng đội ngũ R&amp;D chuyên ngành Công nghệ thực phẩm.</p>
+      <div class="tags"><span>Sản xuất nội bộ</span><span>An toàn thực phẩm</span><span>Chuyên môn R&amp;D</span></div>
+    </article>
+  </div>
+
+  <div class="process-wrap reveal">
+    <h3>Quy trình sản xuất</h3>
+    <p class="muted">5 bước từ nguyên liệu tươi đến hũ sữa chua hoàn chỉnh</p>
+    <ol class="process">
+      <li><b>1</b><span>Nguyên liệu tươi</span></li>
+      <li><b>2</b><span>Thanh trùng</span></li>
+      <li><b>3</b><span>Lên men</span></li>
+      <li><b>4</b><span>Kiểm soát chất lượng</span></li>
+      <li><b>5</b><span>Đóng gói</span></li>
+    </ol>
+  </div>
 </section>
 
 <section id="promotions" class="section">
   <h2 class="reveal">Ưu đãi đặc biệt</h2>
-  <div class="promo reveal"><h3>Tham gia LANORI Rewards</h3><p>Chương trình khách hàng thân thiết và khuyến mãi dành cho khách hàng thường xuyên đang được xây dựng.<br>Nội dung ưu đãi: Quý khách vui lòng thường xuyên cập nhật chi tiết tại fanpage của chúng tôi</p><button class="btn btn-primary" onclick="toast('Tính năng demo, sắp ra mắt')">Đăng ký quan tâm</button></div>
+  <div class="promo reveal">
+    <h3>Tham gia LANORI Rewards</h3>
+    <p>Chương trình khách hàng thân thiết dành cho khách hàng thường xuyên đang được xây dựng. Quý khách vui lòng theo dõi fanpage để cập nhật chi tiết.</p>
+    <ul class="deals">
+      <li>Nhập mã <b>LANORI10</b> trong giỏ hàng để giảm 10%</li>
+      <li id="freeShipDeal">Miễn phí giao hàng cho đơn từ 150.000đ</li>
+    </ul>
+    <form id="promoForm"><input type="email" placeholder="Email của bạn" aria-label="Email nhận ưu đãi" required><button class="btn btn-primary">Đăng ký quan tâm</button></form>
+  </div>
 </section>
 
-<section class="section alt">
+<section id="reviews" class="section alt">
   <h2 class="reveal">Đánh giá của khách hàng</h2>
   <div class="cards three">
-    <div class="card reveal"><div class="stars">★★★★★</div><p>“Ngon xỉu, ăn một hũ chưa đủ 😭”</p><b>Úy Phan</b></div>
-    <div class="card reveal"><div class="stars">★★★★★</div><p>“Mịn, thơm, vị vừa xinh luôn”</p><b>Thu Hiền</b></div>
-    <div class="card reveal"><div class="stars">★★★★★</div><p>“Ăn cuốn quá, lần sau mua tiếp nha 💗”</p><b>Hoàng123</b></div>
+    <div class="card reveal"><div class="stars" aria-label="5 sao">★★★★★</div><p>“Ngon xỉu, ăn một hũ chưa đủ 😭”</p><b>Úy Phan</b></div>
+    <div class="card reveal"><div class="stars" aria-label="5 sao">★★★★★</div><p>“Mịn, thơm, vị vừa xinh luôn”</p><b>Thu Hiền</b></div>
+    <div class="card reveal"><div class="stars" aria-label="5 sao">★★★★★</div><p>“Ăn cuốn quá, lần sau mua tiếp nha 💗”</p><b>Hoàng123</b></div>
   </div>
 </section>
 
 <section id="contact" class="section">
   <h2 class="reveal">Liên hệ</h2>
-  <p class="sub">LANORI - Địa chỉ: 12 Chùa Bộc, Phường Kim Liên, Thành phố Hà Nội<br>Email: suachuangon@lanori.com · Điện thoại: 02267896789<br>Facebook · Instagram · TikTok <i class="muted">(thay bằng liên kết thật)</i></p>
+  <p class="sub">LANORI - Địa chỉ: 12 Chùa Bộc, Phường Kim Liên, Thành phố Hà Nội<br>Email: <a href="mailto:suachuangon@lanori.com">suachuangon@lanori.com</a> · Điện thoại: <a href="tel:02267896789">02267896789</a></p>
+  <div class="social">
+    <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.tiktok.com/" target="_blank" rel="noopener">TikTok</a>
+  </div>
 </section>
 </main>
 
@@ -112,40 +161,54 @@
   <div><div class="logo">LANORI</div><p>Sữa chua thủ công từ 100% sữa tươi và nguyên liệu tự nhiên.</p></div>
   <div><h4>Liên kết nhanh</h4><a href="#products">Sản phẩm</a><a href="#about">Giới thiệu</a><a href="#promotions">Khuyến mãi</a></div>
   <div><h4>Chăm sóc khách hàng</h4><a href="#services">Dịch vụ</a><a href="#contact">Liên hệ</a></div>
-  <div><h4>Nhận bản tin</h4><form id="newsletter"><input type="email" placeholder="Email của bạn" required><button class="btn btn-primary">Đăng ký</button></form></div>
+  <div><h4>Nhận bản tin</h4><form id="newsletter"><input type="email" placeholder="Email của bạn" aria-label="Email nhận bản tin" required><button class="btn btn-primary">Đăng ký</button></form></div>
   <p class="copy">© 2026 LANORI. Website demo phục vụ bài Business Plan.</p>
 </footer>
 
+<button id="toTop" aria-label="Lên đầu trang" hidden>↑</button>
+
 <!-- Giỏ hàng -->
-<aside id="drawer"><div class="dh"><h3>Giỏ hàng</h3><button id="closeCart" aria-label="Đóng">✕</button></div>
+<aside id="drawer" role="dialog" aria-modal="true" aria-label="Giỏ hàng" aria-hidden="true">
+  <div class="dh"><h3>Giỏ hàng</h3><button id="closeCart" aria-label="Đóng giỏ hàng">✕</button></div>
+  <div id="shipHint" class="ship-hint" hidden></div>
   <div id="cartItems"></div>
-  <div class="sum"><div>Tạm tính <b id="subtotal"></b></div><div>Tổng cộng <b id="total"></b></div></div>
+  <div class="coupon"><input id="couponInput" placeholder="Mã giảm giá" aria-label="Mã giảm giá" autocomplete="off"><button class="btn btn-ghost" id="couponBtn">Áp dụng</button></div>
+  <div id="couponMsg" role="status"></div>
+  <div class="sum">
+    <div>Tạm tính <b id="subtotal"></b></div>
+    <div id="discRow" hidden>Giảm giá <b id="discount"></b></div>
+    <div>Phí giao hàng <b id="shipFee"></b></div>
+    <div class="grand">Tổng cộng <b id="total"></b></div>
+  </div>
   <button class="btn btn-primary full" id="checkoutBtn">Thanh toán</button>
   <button class="btn btn-ghost full" id="clearCart">Xóa giỏ hàng</button>
 </aside>
 <div id="overlay"></div>
 
 <!-- Bảng chọn sản phẩm / chi tiết sản phẩm -->
-<div class="modal" id="productModal"><div class="mbox" id="productBody"></div></div>
+<div class="modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="pTitle"><div class="mbox" id="productBody"></div></div>
 
 <!-- Thanh toán -->
-<div class="modal" id="checkoutModal"><div class="mbox">
+<div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="coTitle"><div class="mbox">
   <button class="x" data-close aria-label="Đóng">✕</button>
-  <h3>Thanh toán</h3>
-  <form id="checkoutForm" novalidate>
-    <input name="name" placeholder="Họ và tên" required>
-    <input name="phone" placeholder="Số điện thoại" required>
-    <input name="email" type="email" placeholder="Email" required>
-    <input name="address" placeholder="Địa chỉ giao hàng" required>
-    <textarea name="notes" placeholder="Ghi chú đơn hàng"></textarea>
-    <select name="pay"><option>Thanh toán khi nhận hàng (COD)</option><option>Chuyển khoản (demo)</option></select>
-    <div id="orderSummary" class="summary"></div>
-    <small class="err" id="formErr"></small>
-    <button class="btn btn-primary full">Đặt hàng</button>
-  </form>
-  <div id="thanks" hidden><h3>Cảm ơn bạn đã lựa chọn LANORI!</h3><p>Đơn hàng demo đã được ghi nhận.</p></div>
+  <div id="checkoutView">
+    <h3 id="coTitle">Thanh toán</h3>
+    <form id="checkoutForm" novalidate>
+      <input name="name" placeholder="Họ và tên" autocomplete="name" required>
+      <input name="phone" type="tel" inputmode="tel" placeholder="Số điện thoại" autocomplete="tel" required>
+      <input name="email" type="email" placeholder="Email" autocomplete="email" required>
+      <input name="address" placeholder="Địa chỉ giao hàng (tại Hà Nội)" autocomplete="street-address" required>
+      <textarea name="notes" placeholder="Ghi chú đơn hàng"></textarea>
+      <select name="pay" aria-label="Phương thức thanh toán"><option value="COD">Thanh toán khi nhận hàng (COD)</option><option value="BANK">Chuyển khoản (demo)</option></select>
+      <small class="muted" id="payNote"></small>
+      <div id="orderSummary" class="summary"></div>
+      <small class="err" id="formErr" role="alert"></small>
+      <button class="btn btn-primary full">Đặt hàng</button>
+    </form>
+  </div>
+  <div id="thanks" hidden></div>
 </div></div>
-<div id="toast"></div>
+<div id="toast" role="status" aria-live="polite"></div>
 <script src="script.js"></script>
 </body>
 </html>
