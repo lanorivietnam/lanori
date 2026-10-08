@@ -263,3 +263,349 @@ footer h4{margin-bottom:8px;color:#fff}
   .timeline div:not(:last-child)::after{display:none}
   .timeline i{position:relative;z-index:1;flex:0 0 40px;width:40px;height:40px;margin:0;box-shadow:0 0 0 4px var(--cream)}
 }
+
+/* ===== BỔ SUNG: truy cập, giỏ hàng, phí giao hàng, mã giảm giá ===== */
+[hidden]{display:none!important}
+.skip{position:absolute;left:-999px;top:8px;background:var(--berry);color:#fff;padding:8px 14px;border-radius:8px;z-index:300}
+.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+nav a.on{color:var(--berry);font-weight:500}
+main a:not(.btn):not(.skip){text-decoration:underline;text-decoration-color:var(--pink);text-underline-offset:3px}
+.ph.noimg{font-size:3rem}
+.ph.big.noimg{font-size:6rem}
+
+/* Thẻ sản phẩm */
+.pcard h3{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
+.wish{background:none;border:0;cursor:pointer;font-size:1.1rem;line-height:1;padding:2px;flex:0 0 auto}
+.pcard .row button:hover{filter:brightness(.95)}
+.pcard:focus-visible{outline-offset:4px}
+
+/* Giới thiệu, ưu đãi, liên hệ */
+.cards.trio{grid-template-columns:repeat(3,1fr);margin-bottom:10px}
+.deals{list-style:none;padding:0;margin:0 0 18px;font-size:.92rem}
+.deals li{padding:3px 0}
+#promoForm{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+#promoForm input{flex:1;min-width:180px;padding:10px 16px;border-radius:30px;border:1px solid #ddd;background:#fff}
+.social{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.social a{padding:8px 20px;border-radius:30px;border:1px solid var(--pink);background:#fff;text-decoration:none!important}
+.social a:hover{background:var(--pink)}
+
+/* Giỏ hàng: phí giao hàng, mã giảm giá */
+.ship-hint{font-size:.82rem;background:var(--cream);border-radius:10px;padding:8px 12px;margin-top:10px}
+.bar{height:6px;background:#eee;border-radius:6px;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green);transition:width .3s}
+.coupon{display:flex;gap:6px;margin-top:8px}
+.coupon input{flex:1;min-width:0;padding:8px 14px;border:1px solid #ddd;border-radius:30px}
+.coupon .btn{padding:8px 16px;border-width:1px}
+#couponMsg{font-size:.78rem;min-height:1.3em;padding:2px 4px;text-align:left}
+#couponMsg.ok{color:#2e7d32}
+.sum .free{color:#2e7d32}
+.sum .grand{font-size:1.05rem;border-top:1px solid #eee;margin-top:4px;padding-top:8px}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+#drawer{visibility:hidden;transition:right .35s,visibility 0s .35s}
+#drawer.open{visibility:visible;transition:right .35s}
+
+/* Form thanh toán */
+.mbox [aria-invalid=true]{border-color:#c00}
+#thanks{text-align:center;padding:12px 4px}
+#thanks p{margin:8px 0}
+.mbox .price span{font-weight:600}
+
+/* Nút lên đầu trang */
+#toTop{position:fixed;right:18px;bottom:78px;width:44px;height:44px;border-radius:50%;border:0;background:var(--berry);color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:var(--sh);z-index:40}
+#toTop:hover{background:#c0405a}
+
+@media(max-width:820px){.cards.trio{grid-template-columns:1fr}}
+@media(max-width:600px){
+  .cards.trio .card{text-align:left}
+  #toTop{right:12px;bottom:84px}
+  #drawer{visibility:hidden}
+  #drawer.open{visibility:visible}
+  .coupon input{font-size:16px}
+}
+/* =====================================================
+   ANIMATION BỔ SUNG
+   ===================================================== */
+:root{--ease:cubic-bezier(.22,1,.36,1)}
+
+/* ---------- Keyframes ---------- */
+@keyframes rise{from{opacity:0;transform:translateY(36px) scale(.97)}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(1.5deg)}}
+@keyframes blob{to{transform:translate(50px,40px) scale(1.2)}}
+@keyframes drift{
+  0%{transform:translateY(0) rotate(0);opacity:0}
+  10%,90%{opacity:.55}
+  100%{transform:translateY(-120vh) rotate(360deg);opacity:0}
+}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,84,110,.5)}70%,100%{box-shadow:0 0 0 16px rgba(217,84,110,0)}}
+@keyframes popIn{from{opacity:0;transform:scale(.6) translateY(10px)}}
+@keyframes pop{from{opacity:0;transform:scale(.92) translateY(14px)}}
+@keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg) scale(1.15)}75%{transform:rotate(12deg) scale(1.15)}}
+@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.6)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+@keyframes starPop{from{opacity:0;letter-spacing:-.5em}}
+@keyframes ripple{to{transform:scale(1);opacity:0}}
+
+/* ---------- Hiện dần khi cuộn (thay thế .reveal cũ, có stagger) ---------- */
+.reveal{transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{animation:rise .85s var(--ease) var(--d,0ms) backwards;transition:transform .3s,box-shadow .3s}
+
+/* ---------- Thanh tiến độ cuộn trang ---------- */
+#progress{position:fixed;top:0;left:0;width:100%;height:3px;transform-origin:0 50%;transform:scaleX(0);
+  background:linear-gradient(90deg,var(--green),var(--berry));z-index:120;pointer-events:none}
+header{transition:box-shadow .3s,background .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.08)}
+
+/* ---------- Menu: gạch chân trượt (chỉ desktop) ---------- */
+@media(min-width:1061px){
+  nav a{position:relative}
+  nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:2px;background:var(--berry);
+    transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+  nav a:hover::after,nav a.on::after{transform:scaleX(1)}
+}
+.logo{display:inline-block;transition:transform .3s}
+.logo:hover{animation:wiggle .6s}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;overflow:hidden}
+.hero>*{position:relative;z-index:1}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;z-index:0;
+  animation:blob 14s ease-in-out infinite alternate}
+.hero::before{width:340px;height:340px;background:var(--pink);top:-90px;left:-90px}
+.hero::after{width:300px;height:300px;background:#cfeacf;right:-60px;bottom:-70px;animation-delay:-6s}
+.hero>.particles{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.particles span{position:absolute;bottom:-10%;opacity:0;animation:drift linear infinite}
+
+.hero-text>*{animation:rise .9s var(--ease) backwards}
+.hero-text>*:nth-child(1){animation-delay:.1s}
+.hero-text>*:nth-child(2){animation-delay:.25s}
+.hero-text>*:nth-child(3){animation-delay:.4s}
+.hero-img .ph{animation:float 6s ease-in-out infinite;box-shadow:0 30px 60px rgba(217,84,110,.18)}
+/* Parallax: dịch chuyển cả khung ảnh (dùng thuộc tính translate riêng, không đụng transform của reveal/float) */
+.hero-img{translate:var(--px,0px) var(--py,0px)}
+.hero .hero-img.reveal{transition:opacity .8s var(--ease),transform .8s var(--ease),translate .3s ease-out}
+.hero .btn-primary{animation:pulse 2.4s infinite}
+
+/* ---------- Tiêu đề section: gạch chân vẽ dần ---------- */
+h2.reveal::after{content:"";display:block;width:0;height:3px;margin:10px auto 0;border-radius:3px;
+  background:linear-gradient(90deg,var(--berry),var(--green));transition:width .8s var(--ease) .3s}
+h2.reveal.in::after{width:64px}
+
+/* ---------- Nút: ánh sáng quét + ripple ---------- */
+.btn,.pcard .row button,.filters button{position:relative;overflow:hidden}
+.btn-primary::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%)}
+.btn-primary:hover::after{transform:translateX(120%);transition:transform .7s}
+.btn:active,.pcard .row button:active{transform:scale(.96)}
+.ripple{position:absolute;border-radius:50%;background:currentColor;opacity:.25;transform:scale(0);
+  animation:ripple .6s linear;pointer-events:none}
+
+/* ---------- Thẻ sản phẩm / thẻ thông tin ---------- */
+.pcard .ph{overflow:hidden}
+.pcard .ph img{transition:transform .6s var(--ease)}
+.pcard:hover .ph img{transform:scale(1.1) rotate(1deg)}
+.pcard:hover{box-shadow:0 18px 40px rgba(217,84,110,.18)}
+.card:hover .ic{animation:wiggle .6s}
+.card:hover{box-shadow:0 14px 34px rgba(0,0,0,.1)}
+.filters button,.chips span{transition:transform .25s,background .25s,color .25s,border-color .25s}
+.filters button:hover,.chips span:hover{transform:translateY(-2px);background:var(--pink)}
+.filters button.on:hover,.chips .on:hover{background:var(--green)}
+.wish{transition:transform .2s}
+.wish:hover{transform:scale(1.2)}
+.wish:active{transform:scale(1.5)}
+
+/* ---------- Timeline: từng bước hiện lần lượt ---------- */
+.timeline.in div{animation:popIn .55s var(--ease) both}
+.timeline.in div:nth-child(1){animation-delay:.1s}
+.timeline.in div:nth-child(2){animation-delay:.3s}
+.timeline.in div:nth-child(3){animation-delay:.5s}
+.timeline.in div:nth-child(4){animation-delay:.7s}
+.timeline.in div:nth-child(5){animation-delay:.9s}
+.timeline i{transition:transform .3s,background .3s}
+.timeline div:hover i{transform:scale(1.2);background:var(--berry)}
+
+/* ---------- Đánh giá: sao bung ra ---------- */
+.card.in .stars{animation:starPop .7s var(--ease) .3s both}
+
+/* ---------- Giỏ hàng ---------- */
+#cartCount.bump{animation:bump .4s}
+#cartBtn.shake{animation:shake .5s}
+.item{animation:fade .3s}
+.fly{position:fixed;left:0;top:0;width:32px;height:32px;display:grid;place-items:center;font-size:1.3rem;
+  background:#fff;border-radius:50%;box-shadow:var(--sh);z-index:400;pointer-events:none}
+
+/* ---------- Modal (desktop) + nút lên đầu trang ---------- */
+@media(min-width:601px){.modal.on .mbox{animation:pop .35s var(--ease)}}
+#toTop{transition:transform .25s,background .25s}
+#toTop:not([hidden]){animation:pop .3s}
+#toTop:hover{transform:translateY(-4px)}
+/* =====================================================
+   PHẦN "VỀ LANORI" – BỐ CỤC MỚI
+   ===================================================== */
+.about .sub{max-width:680px;margin-bottom:0}
+
+/* ----- 3 thẻ trụ cột ----- */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px;text-align:left}
+.pillar{display:flex;flex-direction:column;background:#fff;border:1px solid #f3e6df;border-radius:var(--r);
+  padding:28px 26px;box-shadow:var(--sh)}
+.pillar:nth-child(2){--d:90ms}
+.pillar:nth-child(3){--d:180ms}
+.pillar:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(217,84,110,.14)}
+.pi{display:grid;place-items:center;width:52px;height:52px;margin-bottom:16px;border-radius:14px;
+  background:var(--pink);font-size:1.6rem}
+.pillar:nth-child(2) .pi{background:#e3f2e6}
+.pillar:nth-child(3) .pi{background:#fdf0d5}
+.pillar:hover .pi{animation:wiggle .6s}
+.pillar h3{margin:0 0 8px;font-size:1.2rem}
+.pillar p{margin:0 0 18px;color:var(--muted);font-size:.93rem;line-height:1.65}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.tags span{padding:4px 12px;border-radius:20px;background:var(--pink);color:#9c3349;font-size:.78rem;font-weight:500}
+.pillar:nth-child(2) .tags span{background:#e3f2e6;color:#2f6b3c}
+.pillar:nth-child(3) .tags span{background:#fdf0d5;color:#8a5a00}
+
+/* ----- Khung quy trình sản xuất ----- */
+.process-wrap{margin-top:48px;padding:36px 28px 40px;background:#fff;border:1px solid #f3e6df;
+  border-radius:var(--r);box-shadow:var(--sh)}
+.process-wrap h3{margin:0 0 4px;font-size:1.3rem}
+.process-wrap p{margin:0}
+.process{list-style:none;display:flex;justify-content:space-between;position:relative;margin:30px 0 0;padding:0}
+.process::before{content:"";position:absolute;top:21px;left:10%;right:10%;height:2px;opacity:.55;
+  background:repeating-linear-gradient(90deg,var(--green) 0 8px,transparent 8px 16px)}
+.process li{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;
+  font-size:.92rem;font-weight:500}
+.process b{position:relative;z-index:1;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;
+  background:var(--green);color:#fff;font-weight:600;box-shadow:0 0 0 6px #fff;transition:transform .3s,background .3s}
+.process li:hover b{transform:scale(1.15);background:var(--berry)}
+
+/* hiện lần lượt từng bước khi cuộn tới */
+.process-wrap.in .process li{animation:popIn .55s var(--ease,ease-out) both}
+.process-wrap.in .process li:nth-child(1){animation-delay:.1s}
+.process-wrap.in .process li:nth-child(2){animation-delay:.3s}
+.process-wrap.in .process li:nth-child(3){animation-delay:.5s}
+.process-wrap.in .process li:nth-child(4){animation-delay:.7s}
+.process-wrap.in .process li:nth-child(5){animation-delay:.9s}
+
+/* ----- Tablet & điện thoại ----- */
+@media(max-width:820px){
+  .pillars{grid-template-columns:1fr;gap:14px;margin-top:28px}
+  .pillar{padding:22px 20px}
+}
+@media(max-width:640px){
+  .process-wrap{margin-top:32px;padding:26px 20px 28px}
+  .process{flex-direction:column;gap:16px;max-width:300px;margin:24px auto 0}
+  .process::before{top:21px;bottom:21px;left:20px;right:auto;width:2px;height:auto;
+    background:var(--green);opacity:.35}
+  .process li{flex-direction:row;gap:14px;text-align:left}
+}
+/* ===== ẢNH NỀN CHO 3 THẺ "VỀ LANORI" ===== */
+.pillar{position:relative;overflow:hidden;isolation:isolate;--veil:.9}
+
+/* lớp ảnh nền */
+.pillar::before{content:"";position:absolute;inset:0;z-index:-2;
+  background:var(--bg) center/cover no-repeat;
+  transition:transform .8s var(--ease,ease)}
+
+/* lớp phủ trắng giúp chữ dễ đọc (chỉnh --veil: càng nhỏ ảnh càng rõ) */
+.pillar::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(255,255,255,var(--veil)) 0%,rgba(255,255,255,calc(var(--veil) - .12)) 100%)}
+
+.pillar:hover::before{transform:scale(1.08)}
+
+/* đường dẫn ảnh cho từng thẻ */
+.pillar:nth-child(1){--bg:url("images/nguyen-lieu.jpg")}
+.pillar:nth-child(2){--bg:url("images/nguon-cung.jpg")}
+.pillar:nth-child(3){--bg:url("images/san-xuat.jpg")}
+/* ===== BỎ ICON, CHỮ TO HƠN CHO 3 THẺ "VỀ LANORI" ===== */
+.pi{display:none}
+
+.pillar{padding:36px 32px}
+.pillar h3{font-size:1.65rem;margin:0 0 14px}
+.pillar p{font-size:1.08rem;line-height:1.7;color:#555;margin:0 0 24px}
+.tags{gap:10px}
+.tags span{font-size:.9rem;padding:7px 16px}
+
+@media(max-width:820px){
+  .pillar{padding:26px 22px}
+  .pillar h3{font-size:1.4rem}
+  .pillar p{font-size:1rem}
+}
+/* ===== ẢNH NỀN CHO KHUNG "QUY TRÌNH SẢN XUẤT" ===== */
+.process-wrap{position:relative;overflow:hidden;isolation:isolate;--veil:.88}
+
+/* lớp ảnh nền */
+.process-wrap::before{content:"";position:absolute;inset:0;z-index:-2;
+  background:url("images/quytrinhsanxuat.png") center/cover no-repeat}
+
+/* lớp phủ trắng giúp chữ dễ đọc (càng nhỏ ảnh càng rõ, nên để từ .75 đến .93) */
+.process-wrap::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:rgba(255,255,255,var(--veil))}
+
+/* chữ đậm và to hơn một chút cho dễ đọc trên ảnh */
+.process-wrap p{color:#555}
+.process li{font-weight:600;font-size:1rem}
+/* ===== TIÊU ĐỀ PHỤ "DỊCH VỤ" TRONG SECTION VÌ SAO CHỌN ===== */
+.subhead{margin:72px 0 0;font-size:1.7rem}
+.subhead::after{content:"";display:block;width:48px;height:3px;margin:10px auto 0;border-radius:3px;
+  background:linear-gradient(90deg,var(--berry),var(--green))}
+#services{scroll-margin-top:100px}
+@media(max-width:600px){.subhead{margin-top:44px;font-size:1.4rem}}
+/* =====================================================
+   TỐI ƯU CHO ĐIỆN THOẠI & MÁY TÍNH BẢNG
+   ===================================================== */
+
+/* Không cho trang cuộn phía sau khi đang mở giỏ hàng / hộp thoại */
+body:has(#drawer.open),body:has(.modal.on){overflow:hidden}
+
+/* Không tự phóng chữ khi xoay ngang điện thoại */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+
+/* Điện thoại xoay ngang: hero không cần cao hết màn hình */
+@media(max-height:500px) and (orientation:landscape){
+  .hero{min-height:auto;padding-top:90px}
+}
+
+/* Máy tính bảng: hàng cuối của lưới thẻ được căn giữa */
+@media(min-width:601px) and (max-width:1060px){
+  .cards.five{display:flex;flex-wrap:wrap;justify-content:center}
+  .cards.five .card{flex:0 1 calc((100% - 40px)/3)}
+}
+@media(min-width:601px) and (max-width:820px){
+  .cards.five .card{flex-basis:calc((100% - 20px)/2)}
+  .cards.three{display:flex;flex-wrap:wrap;justify-content:center}
+  .cards.three .card{flex:0 1 calc((100% - 20px)/2)}
+}
+
+/* Màn hình cảm ứng: bỏ hiệu ứng "rê chuột", thêm phản hồi khi chạm */
+@media(hover:none){
+  .pillar:hover,.pcard:hover{transform:none}
+  .pcard:hover .ph img{transform:none}
+  .card:hover .ic,.pillar:hover .pi{animation:none}
+  .process li:hover b{transform:none;background:var(--green)}
+  .filters button:hover,.chips span:hover{transform:none}
+  .pcard:active,.card:active,.pillar:active{transform:scale(.98)}
+}
+
+/* Điện thoại */
+@media(max-width:600px){
+  /* 3 thẻ "Về LANORI": vuốt ngang cho gọn */
+  .pillars{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;
+    margin:24px -5% 0;padding:4px 5% 14px;scrollbar-width:none}
+  .pillars::-webkit-scrollbar{display:none}
+  .pillar{flex:0 0 86%;scroll-snap-align:center}
+
+  /* Thẻ vuốt ngang luôn hiện sẵn, thấy thẻ kế tiếp "ló" ra bên phải */
+  .pillars .pillar.reveal,.cards.three .card.reveal{opacity:1;transform:none;animation:none}
+
+  /* Nhẹ máy hơn */
+  .hero::before,.hero::after{width:200px;height:200px;filter:blur(40px);opacity:.4}
+  .particles span:nth-child(n+6){display:none}
+  @keyframes rise{from{opacity:0;transform:translateY(20px) scale(.98)}}
+
+  /* Ô nhập liệu cỡ chữ 16px để iPhone không tự phóng to */
+  #promoForm input,#couponInput{font-size:16px}
+  #promoForm{display:flex;flex-direction:column;gap:10px}
+  #promoForm input,#promoForm .btn{width:100%}
+
+  /* Nút lên đầu trang tránh thanh home của iPhone */
+  #toTop{bottom:calc(84px + env(safe-area-inset-bottom))}
+}
