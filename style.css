@@ -609,3 +609,53 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   /* Nút lên đầu trang tránh thanh home của iPhone */
   #toTop{bottom:calc(84px + env(safe-area-inset-bottom))}
 }
+/* =====================================================
+   TỐI ƯU ĐIỆN THOẠI – ĐỢT 2
+   ===================================================== */
+
+/* Chung: chạm nhạy hơn, tiêu đề xuống dòng đẹp, màu điều khiển đúng thương hiệu */
+a,button,input,select,textarea,label,summary{touch-action:manipulation}
+button,.btn{-webkit-user-select:none;user-select:none}
+h1,h2,h3{text-wrap:balance}
+input[type=range],input[type=checkbox],input[type=radio]{accent-color:var(--berry)}
+#drawer,.mbox{overscroll-behavior:contain}
+
+/* Nút menu: ☰ đổi thành ✕ khi mở */
+#burger[aria-expanded="true"]{font-size:0}
+#burger[aria-expanded="true"]::after{content:"✕";font-size:1.3rem;line-height:1}
+
+/* Thanh giỏ hàng (mặc định ẩn, chỉ hiện trên điện thoại) */
+#cartBar{display:none}
+@keyframes slideUp{from{transform:translateY(130%);opacity:0}}
+
+@media(max-width:600px){
+  /* ----- Thanh giỏ hàng dính đáy ----- */
+  #cartBar:not([hidden]){display:flex;align-items:center;justify-content:space-between;gap:12px;
+    position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:60;
+    min-height:54px;padding:8px 10px 8px 18px;border:0;border-radius:30px;
+    background:var(--berry);color:#fff;font-size:.95rem;cursor:pointer;
+    box-shadow:0 10px 30px rgba(217,84,110,.45);animation:slideUp .35s var(--ease,ease-out)}
+  #cartBar .cb-l,#cartBar .cb-r{display:flex;align-items:center;gap:10px}
+  #cartBar b{font-weight:600}
+  #cartBar em{font-style:normal;font-weight:600;background:#fff;color:var(--berry);
+    border-radius:20px;padding:8px 16px}
+
+  /* chừa chỗ để thanh không che nội dung / nút nổi / thông báo */
+  body:has(#cartBar:not([hidden])){padding-bottom:84px}
+  body:has(#cartBar:not([hidden])) #toTop{bottom:calc(92px + env(safe-area-inset-bottom))}
+  body:has(#cartBar:not([hidden])) #toast{bottom:calc(86px + env(safe-area-inset-bottom))}
+  body:has(#drawer.open) #cartBar,body:has(.modal.on) #cartBar{display:none}
+
+  /* ----- Hộp thoại dạng ngăn kéo ----- */
+  .mbox::before{content:"";display:block;width:40px;height:4px;border-radius:4px;background:#e2d9d2;margin:-6px auto 14px}
+  #checkoutForm>.btn-primary{position:sticky;bottom:0;box-shadow:0 0 0 10px #fff;z-index:2}
+
+  /* ----- Liên hệ: dễ bấm ----- */
+  #contact .sub a{color:var(--berry);font-weight:500;display:inline-block;padding:6px 0}
+  .social{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+  .social a{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;
+    border:1px solid var(--pink);border-radius:30px;background:#fff}
+
+  /* Thanh trượt độ ngọt dễ kéo hơn */
+  .builder input[type=range]{height:36px}
+}
