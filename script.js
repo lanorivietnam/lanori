@@ -1,7 +1,9 @@
-/* ===== CẤU HÌNH (giả định cho bản demo) ===== */
+/* ===== CẤU HÌNH ===== */
 const DELIVERY_FEE = 20000;     // phí giao hàng nội thành Hà Nội
 const FREE_SHIP_FROM = 150000;  // đơn từ mức này được miễn phí giao hàng
 const ADDON_PRICE = 5000;       // phí mỗi topping thêm
+const ZALO_PHONE = '0975971860';  // số điện thoại Zalo nhận đơn
+const ZALO_URL = 'https://zalo.me/' + ZALO_PHONE;
 const COUPONS = {
   LANORI10: {type: 'pct', v: 10, label: 'Giảm 10% tạm tính'},
   FREESHIP: {type: 'ship', label: 'Miễn phí giao hàng'}
@@ -187,7 +189,7 @@ function mTotal(){
 ['input','change'].forEach(ev=>document.addEventListener(ev,e=>{if(e.target.closest('#productBody'))mTotal()}));
 
 /* ===== THANH TOÁN ===== */
-const PAY={COD:'Thanh toán khi nhận hàng (COD)',BANK:'Chuyển khoản (demo)'};
+const PAY={COD:'Thanh toán khi nhận hàng (COD)',BANK:'Chuyển khoản'};
 function renderSummary(){
   const t=totals();
   $('#orderSummary').innerHTML=cart.map(i=>`${i.name} (${optText(i.opt)}) × ${i.qty} — ${fmt(i.price*i.qty)}`).join('<br>')
@@ -202,28 +204,76 @@ function openCheckout(){
   $('#checkoutView').hidden=false;$('#thanks').hidden=true;
   openModal($('#checkoutModal'));
 }
+
+/* ===== ĐẶT HÀNG QUA ZALO ===== */
 $('#checkoutForm').elements.pay.addEventListener('change',e=>{
-  $('#payNote').textContent=e.target.value==='BANK'?'Thông tin chuyển khoản sẽ được LANORI gửi qua email/điện thoại sau khi xác nhận đơn.':'';
+  $('#payNote').textContent=e.target.value==='BANK'?'LANORI sẽ gửi thông tin chuyển khoản qua Zalo sau khi xác nhận đơn.':'';
 });
+
+/* Tạo nội dung tin nhắn đơn hàng */
+function buildOrderText(code,f){
+  const t=totals(),v=n=>f.elements[n].value.trim();
+  return [
+    `ĐƠN HÀNG LANORI ${code}`,
+    '',
+    ...cart.map((i,k)=>`${k+1}. ${i.name} (${optText(i.opt)}) x ${i.qty} = ${fmt(i.price*i.qty)}`),
+    '',
+    `Tạm tính: ${fmt(t.sub)}`,
+    t.disc?`Giảm giá (${coupon}): -${fmt(t.disc)}`:null,
+    `Phí giao hàng: ${t.free?'Miễn phí':fmt(t.ship)}`,
+    `TỔNG CỘNG: ${fmt(t.total)}`,
+    `Thanh toán: ${PAY[f.elements.pay.value]}`,
+    '',
+    `Người nhận: ${v('name')}`,
+    `SĐT: ${v('phone')}`,
+    v('email')?`Email: ${v('email')}`:null,
+    `Địa chỉ: ${v('address')}`,
+    v('notes')?`Ghi chú: ${v('notes')}`:null
+  ].filter(l=>l!==null).join('\n');
+}
+
+/* Sao chép vào clipboard (có phương án dự phòng) */
+async function copyText(text){
+  try{await navigator.clipboard.writeText(text);return true}
+  catch{
+    const ta=$('#orderMsg');
+    try{ta.focus();ta.select();return document.execCommand('copy')}catch{return false}
+  }
+}
+
 $('#checkoutForm').addEventListener('submit',e=>{
   e.preventDefault();const f=e.target,v=n=>f.elements[n].value.trim();
   const fail=(n,msg)=>{$$('#checkoutForm [aria-invalid]').forEach(x=>x.removeAttribute('aria-invalid'));f.elements[n].setAttribute('aria-invalid','true');f.elements[n].focus();$('#formErr').textContent=msg};
   if(!cart.length)return fail('name','Giỏ hàng đang trống.');
   if(!v('name'))return fail('name','Vui lòng nhập họ và tên.');
   if(!/^(0|\+84)\d{9}$/.test(v('phone').replace(/[\s.-]/g,'')))return fail('phone','Số điện thoại không hợp lệ (ví dụ: 0912345678).');
-  if(!/^\S+@\S+\.\S+$/.test(v('email')))return fail('email','Email không hợp lệ.');
+  if(v('email')&&!/^\S+@\S+\.\S+$/.test(v('email')))return fail('email','Email không hợp lệ.');
   if(v('address').length<8)return fail('address','Vui lòng nhập địa chỉ giao hàng đầy đủ.');
   $$('#checkoutForm [aria-invalid]').forEach(x=>x.removeAttribute('aria-invalid'));
   $('#formErr').textContent='';
-  const t=totals(),code='LN'+Date.now().toString().slice(-7),pay=PAY[f.elements.pay.value];
-  $('#thanks').innerHTML=`<h3>Cảm ơn bạn đã lựa chọn LANORI! 💗</h3>
+
+  const code='LN'+Date.now().toString().slice(-7);
+  const msg=buildOrderText(code,f);   // phải tạo TRƯỚC khi xóa giỏ hàng và reset form
+
+  $('#thanks').innerHTML=`<h3>Gần xong rồi! 💗</h3>
     <p>Mã đơn hàng: <b>${code}</b></p>
-    <p>Tổng thanh toán: <b>${fmt(t.total)}</b> (${pay})</p>
-    <p class="muted">Đây là đơn hàng demo, đã được ghi nhận. LANORI sẽ liên hệ xác nhận qua số điện thoại bạn cung cấp.</p>
-    <button class="btn btn-primary full" data-close>Tiếp tục mua sắm</button>`;
+    <p>Bấm <b>Gửi đơn qua Zalo</b>, sau đó <b>dán</b> nội dung đơn vào khung chat và bấm gửi để LANORI nhận đơn của bạn.</p>
+    <textarea id="orderMsg" readonly rows="10"></textarea>
+    <button type="button" class="btn btn-primary full" id="zaloSend">Gửi đơn qua Zalo</button>
+    <button type="button" class="btn btn-ghost full" id="zaloCopy">Sao chép nội dung đơn</button>
+    <p class="muted">Đơn chỉ được ghi nhận khi bạn đã gửi tin nhắn trong Zalo.</p>
+    <button type="button" class="btn btn-ghost full" data-close>Đóng</button>`;
+  $('#orderMsg').value=msg;   // gán bằng .value để tránh chèn mã HTML từ dữ liệu khách nhập
+
+  $('#zaloSend').onclick=()=>{
+    window.open(ZALO_URL,'_blank','noopener');   // mở Zalo ngay trong thao tác bấm để không bị chặn popup
+    copyText(msg).then(ok=>toast(ok?'Đã sao chép đơn, hãy dán vào Zalo':'Hãy sao chép nội dung đơn rồi dán vào Zalo'));
+  };
+  $('#zaloCopy').onclick=()=>copyText(msg).then(ok=>toast(ok?'Đã sao chép nội dung đơn':'Không sao chép được, hãy chọn và sao chép thủ công'));
+
   cart=[];coupon=null;save();renderCart();f.reset();$('#payNote').textContent='';
   $('#checkoutView').hidden=true;$('#thanks').hidden=false;
-  const b=$('#thanks button');b&&b.focus();
+  const b=$('#zaloSend');b&&b.focus();
 });
 
 /* ===== SỰ KIỆN CHUNG ===== */
@@ -308,6 +358,7 @@ $('#addons').onclick=e=>{
 /* Thông tin giao hàng hiển thị theo cấu hình ở đầu file */
 $('#shipInfo').textContent=`Giao hàng đến tận nhà cho khách hàng tại Hà Nội. Phí ${fmt(DELIVERY_FEE)}, miễn phí cho đơn từ ${fmt(FREE_SHIP_FROM)}.`;
 $('#freeShipDeal').textContent=`Miễn phí giao hàng cho đơn từ ${fmt(FREE_SHIP_FROM)}`;
+const zaloLink=$('#zaloLink');if(zaloLink)zaloLink.href=ZALO_URL;   // link Zalo ở mục Liên hệ
 
 /* Ảnh lỗi hoặc thiếu file: thay bằng biểu tượng */
 function imgFallback(i){
