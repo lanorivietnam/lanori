@@ -659,3 +659,7 @@ input[type=range],input[type=checkbox],input[type=radio]{accent-color:var(--berr
   /* Thanh trượt độ ngọt dễ kéo hơn */
   .builder input[type=range]{height:36px}
 }
+
+/* ===== KHUNG NỘI DUNG ĐƠN HÀNG (đặt hàng qua Zalo) ===== */
+#orderMsg{line-height:1.5;background:#fafafa;resize:vertical;text-align:left}
+#thanks .btn{margin-top:8px}
