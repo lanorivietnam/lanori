@@ -457,3 +457,82 @@ renderFilters();renderProducts();renderCart();
     }).observe(cc, { childList: true, characterData: true, subtree: true });
   }
 })();
+/* =====================================================
+   TỐI ƯU ĐIỆN THOẠI – ĐỢT 2
+   ===================================================== */
+(() => {
+  const cc = document.getElementById('cartCount');
+  const cartBtn = document.getElementById('cartBtn');
+  const nav = document.getElementById('nav');
+  const burger = document.getElementById('burger');
+
+  /* 1. Thanh giỏ hàng dính đáy (CSS chỉ hiện trên điện thoại) */
+  if (cc && cartBtn) {
+    const bar = document.createElement('button');
+    bar.id = 'cartBar';
+    bar.type = 'button';
+    bar.hidden = true;
+    bar.setAttribute('aria-label', 'Xem giỏ hàng');
+    bar.innerHTML = '<span class="cb-l">🛒 <b id="cbQty"></b></span>' +
+                    '<span class="cb-r"><b id="cbTotal"></b><em>Xem giỏ</em></span>';
+    document.body.appendChild(bar);
+    bar.addEventListener('click', () => cartBtn.click());
+
+    const qtyEl = bar.querySelector('#cbQty');
+    const totEl = bar.querySelector('#cbTotal');
+    const sub = document.getElementById('subtotal');
+    let prev = parseInt(cc.textContent, 10) || 0;
+
+    const sync = () => {
+      const n = parseInt(cc.textContent, 10) || 0;
+      bar.hidden = n < 1;
+      qtyEl.textContent = n + ' sản phẩm';
+      totEl.textContent = sub ? sub.textContent : '';
+      if (n > prev && navigator.vibrate) navigator.vibrate(12); // rung nhẹ (Android)
+      prev = n;
+    };
+    const mo = new MutationObserver(sync);
+    [cc, sub].forEach(el => el && mo.observe(el, { childList: true, characterData: true, subtree: true }));
+    sync();
+  }
+
+  /* 2. Bấm ra ngoài menu thì đóng menu */
+  if (nav && burger) {
+    document.addEventListener('click', e => {
+      if (nav.classList.contains('open') && !e.target.closest('#nav,#burger')) {
+        nav.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* 3. Vuốt xuống để đóng bảng chọn sản phẩm / thanh toán (điện thoại) */
+  document.querySelectorAll('.modal').forEach(m => {
+    const box = m.querySelector('.mbox');
+    if (!box) return;
+    let y0 = null, dy = 0;
+
+    m.addEventListener('touchstart', e => {
+      if (innerWidth > 600 || !box.contains(e.target) || box.scrollTop > 0) return;
+      y0 = e.touches[0].clientY;
+      dy = 0;
+      box.style.transition = 'none';
+    }, { passive: true });
+
+    m.addEventListener('touchmove', e => {
+      if (y0 === null) return;
+      dy = Math.max(0, e.touches[0].clientY - y0);
+      box.style.transform = `translateY(${dy}px)`;
+    }, { passive: true });
+
+    m.addEventListener('touchend', () => {
+      if (y0 === null) return;
+      y0 = null;
+      box.style.transition = 'transform .25s';
+      const closeBtn = m.querySelector('.x');
+      if (dy > 110 && closeBtn) closeBtn.click();
+      box.style.transform = '';
+      setTimeout(() => { box.style.transition = ''; }, 300);
+    });
+  });
+})();
