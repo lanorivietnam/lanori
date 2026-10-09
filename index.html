@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FoodEstablishment","name":"LANORI","description":"Sữa chua thủ công từ 100% sữa tươi và nguyên liệu tự nhiên","email":"suachuangon@lanori.com","telephone":"02267896789","address":{"@type":"PostalAddress","streetAddress":"12 Chùa Bộc, Phường Kim Liên","addressLocality":"Hà Nội","addressCountry":"VN"}}
+{"@context":"https://schema.org","@type":"FoodEstablishment","name":"LANORI","description":"Sữa chua thủ công từ 100% sữa tươi và nguyên liệu tự nhiên","email":"suachuangon@lanori.com","telephone":"0975971860","address":{"@type":"PostalAddress","streetAddress":"12 Chùa Bộc, Phường Kim Liên","addressLocality":"Hà Nội","addressCountry":"VN"}}
 </script>
 </head>
 <body>
@@ -148,8 +148,9 @@
 
 <section id="contact" class="section">
   <h2 class="reveal">Liên hệ</h2>
-  <p class="sub">LANORI - Địa chỉ: 12 Chùa Bộc, Phường Kim Liên, Thành phố Hà Nội<br>Email: <a href="mailto:suachuangon@lanori.com">suachuangon@lanori.com</a> · Điện thoại: <a href="tel:02267896789">02267896789</a></p>
+  <p class="sub">LANORI - Địa chỉ: 12 Chùa Bộc, Phường Kim Liên, Thành phố Hà Nội<br>Email: <a href="mailto:suachuangon@lanori.com">suachuangon@lanori.com</a> · Điện thoại: <a href="tel:0975971860">0975971860</a></p>
   <div class="social">
+    <a id="zaloLink" href="https://zalo.me/" target="_blank" rel="noopener">Zalo</a>
     <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
     <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
     <a href="https://www.tiktok.com/" target="_blank" rel="noopener">TikTok</a>
@@ -188,7 +189,7 @@
 <!-- Bảng chọn sản phẩm / chi tiết sản phẩm -->
 <div class="modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="pTitle"><div class="mbox" id="productBody"></div></div>
 
-<!-- Thanh toán -->
+<!-- Thanh toán (đặt hàng qua Zalo) -->
 <div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="coTitle"><div class="mbox">
   <button class="x" data-close aria-label="Đóng">✕</button>
   <div id="checkoutView">
@@ -196,14 +197,14 @@
     <form id="checkoutForm" novalidate>
       <input name="name" placeholder="Họ và tên" autocomplete="name" required>
       <input name="phone" type="tel" inputmode="tel" placeholder="Số điện thoại" autocomplete="tel" required>
-      <input name="email" type="email" placeholder="Email" autocomplete="email" required>
+      <input name="email" type="email" placeholder="Email (không bắt buộc)" autocomplete="email">
       <input name="address" placeholder="Địa chỉ giao hàng (tại Hà Nội)" autocomplete="street-address" required>
       <textarea name="notes" placeholder="Ghi chú đơn hàng"></textarea>
-      <select name="pay" aria-label="Phương thức thanh toán"><option value="COD">Thanh toán khi nhận hàng (COD)</option><option value="BANK">Chuyển khoản (demo)</option></select>
+      <select name="pay" aria-label="Phương thức thanh toán"><option value="COD">Thanh toán khi nhận hàng (COD)</option><option value="BANK">Chuyển khoản</option></select>
       <small class="muted" id="payNote"></small>
       <div id="orderSummary" class="summary"></div>
       <small class="err" id="formErr" role="alert"></small>
-      <button class="btn btn-primary full">Đặt hàng</button>
+      <button class="btn btn-primary full">Tạo đơn &amp; gửi qua Zalo</button>
     </form>
   </div>
   <div id="thanks" hidden></div>
