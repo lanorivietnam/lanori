@@ -659,10 +659,10 @@ input[type=range],input[type=checkbox],input[type=radio]{accent-color:var(--berr
   /* Thanh trượt độ ngọt dễ kéo hơn */
   .builder input[type=range]{height:36px}
 }
+/* ===== KHUNG NỘI DUNG ĐƠN HÀNG (đặt hàng qua Zalo) ===== */
+#orderMsg{line-height:1.5;background:#fafafa;resize:vertical;text-align:left}
+#thanks .btn{margin-top:8px}
 /* ===== ĐỔI FONT & MÀU TIÊU ĐỀ ===== */
 :root{--head:#a8384f}
 h1,h2,h3,.logo{font-family:'Quicksand',Poppins,sans-serif;font-weight:700}
 h2,h3{color:var(--head)}
-/* ===== KHUNG NỘI DUNG ĐƠN HÀNG (đặt hàng qua Zalo) ===== */
-#orderMsg{line-height:1.5;background:#fafafa;resize:vertical;text-align:left}
-#thanks .btn{margin-top:8px}
